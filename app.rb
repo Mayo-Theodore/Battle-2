@@ -8,7 +8,10 @@ class Battle < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  # our routes would go here
+  # before do
+  #   @hitpoints = Hitpoints.instance
+  # end
+
   get '/' do
     erb :index
   end
@@ -26,8 +29,15 @@ class Battle < Sinatra::Base
   end
 
   post '/player_1_HP' do
-    
-    erb :play
+    @hitpoints = Hitpoints.instance
+    @hitpoints.player_1_HP
+    redirect '/play'
+  end
+
+  get '/attack' do
+    @player_1 = session[:player_1]
+    @player_2 = session[:player_2]
+    erb :attack
   end
 
     # # Start the server if this file is executed directly (do not change the line below)
