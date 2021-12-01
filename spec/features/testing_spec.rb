@@ -8,3 +8,11 @@ feature 'Expects players to fill in their names' do
   end
 end
 
+feature 'Expects player 1 to see player 2 hit points' do
+  scenario 'View hit points' do
+    visit('/names')
+    click_button('View player 2 hit points')
+    expect(page).to have_content('Player 2 hit points')
+  end
+end
+
