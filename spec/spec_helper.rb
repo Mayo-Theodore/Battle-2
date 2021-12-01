@@ -7,6 +7,7 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require 'features/web_helpers.rb'
+require 'sinatra/reloader'
 
 Capybara.app = Battle
 

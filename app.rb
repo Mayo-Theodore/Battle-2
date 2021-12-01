@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'player'
 
 class Battle < Sinatra::Base
   enable :sessions
@@ -8,23 +9,22 @@ class Battle < Sinatra::Base
     register Sinatra::Reloader
   end
 
-  # before do
-  #   @hitpoints = Hitpoints.instance
-  # end
+  $player_1 = 'Riky'
+  $player_2 = 'Jessica'
 
   get '/' do
     erb :index
   end
 
   post '/names' do
-    session[:player_1] = params[:player_1]
-    session[:player_2] = params[:player_2]
+    $player_1 = Player.new(params[:player_1])
+    $player_2 = Player.new(params[:player_2])
     redirect "/play"
   end
 
   get '/play' do
-    @player_1 = session[:player_1]
-    @player_2 = session[:player_2]
+    @player_1 = $player_1.player
+    @player_2 = $player_2.player
     erb :play
   end
 
@@ -35,8 +35,8 @@ class Battle < Sinatra::Base
   end
 
   get '/attack' do
-    @player_1 = session[:player_1]
-    @player_2 = session[:player_2]
+    @player_1 = $player_1.player
+    @player_2 = $player_2.player
     erb :attack
   end
 
